@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.executeUpdate();
             System.out.println("User registered successfully.");
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("X Error in registerUser(): " + e.getMessage());
         }
     }
@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
                 System.out.println(" Invalid credentials.");
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("X Error in login(): " + e.getMessage());
         }
 
@@ -92,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
                 users.add(user);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("❌ Error in getAllUsers(): " + e.getMessage());
         }
 
