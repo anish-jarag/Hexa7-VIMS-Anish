@@ -1,8 +1,7 @@
 package com.example.vims_backend.service;
 
 import com.example.vims_backend.entity.Proposal;
-import com.example.vims_backend.entity.enums.ProposalStatus;
-import com.example.vims_backend.repo.ProposalRepository;
+import com.example.vims_backend.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,41 +13,37 @@ public class ProposalService {
     @Autowired
     private ProposalRepository proposalRepository;
 
-    // Submit new proposal
-    public Proposal submitProposal(Proposal proposal) {
-        proposal.setStatus(ProposalStatus.PROPOSAL_SUBMITTED);
+    public Proposal addProposal(Proposal proposal) {
         return proposalRepository.save(proposal);
     }
 
-    // Get proposal by ID
-    public Proposal getProposalById(int proposalId) {
-        return proposalRepository.findById(proposalId).orElse(null);
+    public List<Proposal> getAllProposals() {
+        return proposalRepository.findAll();
     }
 
-    // List all proposals by user
+    public Proposal getProposalById(int id) {
+        return proposalRepository.findById(id).orElse(null);
+    }
+
+    public Proposal updateProposal(int id, Proposal updatedProposal) {
+        Proposal existing = proposalRepository.findById(id).orElse(null);
+        if (existing != null) {
+            updatedProposal.setProposalId(id);
+            return proposalRepository.save(updatedProposal);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean deleteProposal(int id) {
+        if (proposalRepository.existsById(id)) {
+            proposalRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
     public List<Proposal> getProposalsByUserId(int userId) {
-        return proposalRepository.findByUserId(userId);
-    }
-
-    // Officer approves and generates quote
-    public Proposal approveProposal(int proposalId, double quoteAmount, int officerId) {
-        Proposal proposal = getProposalById(proposalId);
-        if (proposal != null) {
-            proposal.setStatus(ProposalStatus.QUOTE_GENERATED);
-            proposal.setQuoteAmount(quoteAmount);
-            proposal.setApprovedBy(officerId);
-            proposalRepository.save(proposal);
-        }
-        return proposal;
-    }
-
-    // Update proposal status manually
-    public Proposal updateStatus(int proposalId, ProposalStatus status) {
-        Proposal proposal = getProposalById(proposalId);
-        if (proposal != null) {
-            proposal.setStatus(status);
-            proposalRepository.save(proposal);
-        }
-        return proposal;
+        return proposalRepository.findByUser_UserId(userId);
     }
 }

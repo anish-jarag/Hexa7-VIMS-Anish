@@ -4,8 +4,8 @@ import com.example.vims_backend.entity.User;
 import com.example.vims_backend.entity.Vehicle;
 import com.example.vims_backend.entity.enums.Role;
 import com.example.vims_backend.entity.enums.VehicleType;
-import com.example.vims_backend.repo.UserRepository;
-import com.example.vims_backend.repo.VehicleRepository;
+import com.example.vims_backend.repository.UserRepository;
+import com.example.vims_backend.repository.VehicleRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

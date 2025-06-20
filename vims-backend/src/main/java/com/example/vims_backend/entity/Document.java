@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+import com.example.vims_backend.entity.enums.DocumentType;
+
 @Entity
 public class Document {
 
@@ -11,9 +13,12 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int documentId;
 
-    private int proposalId;
+    @ManyToOne
+    @JoinColumn(name = "proposal_id")
+    private Proposal proposal;
 
-    private String docType;
+    @Enumerated(EnumType.STRING)
+    private DocumentType docType;
 
     private String fileUrl;
 
@@ -22,52 +27,59 @@ public class Document {
     // Constructors
     public Document() {}
 
-    public Document(int documentId, int proposalId, String docType, String fileUrl, LocalDateTime uploadedAt) {
-        this.documentId = documentId;
-        this.proposalId = proposalId;
-        this.docType = docType;
-        this.fileUrl = fileUrl;
-        this.uploadedAt = uploadedAt;
-    }
+	public Document(int documentId, Proposal proposal, DocumentType docType, String fileUrl, LocalDateTime uploadedAt) {
+		super();
+		this.documentId = documentId;
+		this.proposal = proposal;
+		this.docType = docType;
+		this.fileUrl = fileUrl;
+		this.uploadedAt = uploadedAt;
+	}
 
-    // Getters and Setters
-    public int getDocumentId() {
-        return documentId;
-    }
+	@Override
+	public String toString() {
+		return "Document [documentId=" + documentId + ", proposal=" + proposal + ", docType=" + docType + ", fileUrl="
+				+ fileUrl + ", uploadedAt=" + uploadedAt + "]";
+	}
 
-    public void setDocumentId(int documentId) {
-        this.documentId = documentId;
-    }
+	public int getDocumentId() {
+		return documentId;
+	}
 
-    public int getProposalId() {
-        return proposalId;
-    }
+	public void setDocumentId(int documentId) {
+		this.documentId = documentId;
+	}
 
-    public void setProposalId(int proposalId) {
-        this.proposalId = proposalId;
-    }
+	public Proposal getProposal() {
+		return proposal;
+	}
 
-    public String getDocType() {
-        return docType;
-    }
+	public void setProposal(Proposal proposal) {
+		this.proposal = proposal;
+	}
 
-    public void setDocType(String docType) {
-        this.docType = docType;
-    }
+	public DocumentType getDocType() {
+		return docType;
+	}
 
-    public String getFileUrl() {
-        return fileUrl;
-    }
+	public void setDocType(DocumentType docType) {
+		this.docType = docType;
+	}
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
+	public String getFileUrl() {
+		return fileUrl;
+	}
 
-    public LocalDateTime getUploadedAt() {
-        return uploadedAt;
-    }
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
 
-    public void setUploadedAt(LocalDateTime uploadedAt) {
-        this.uploadedAt = uploadedAt;
-    }
+	public LocalDateTime getUploadedAt() {
+		return uploadedAt;
+	}
+
+	public void setUploadedAt(LocalDateTime uploadedAt) {
+		this.uploadedAt = uploadedAt;
+	}
+
 }

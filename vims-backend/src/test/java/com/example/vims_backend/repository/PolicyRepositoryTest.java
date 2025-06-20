@@ -2,10 +2,10 @@ package com.example.vims_backend.repository;
 
 import com.example.vims_backend.entity.*;
 import com.example.vims_backend.entity.enums.*;
-import com.example.vims_backend.repo.PolicyRepository;
-import com.example.vims_backend.repo.ProposalRepository;
-import com.example.vims_backend.repo.UserRepository;
-import com.example.vims_backend.repo.VehicleRepository;
+import com.example.vims_backend.repository.PolicyRepository;
+import com.example.vims_backend.repository.ProposalRepository;
+import com.example.vims_backend.repository.UserRepository;
+import com.example.vims_backend.repository.VehicleRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

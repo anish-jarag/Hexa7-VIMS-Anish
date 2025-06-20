@@ -2,7 +2,8 @@ package com.example.vims_backend.repository;
 
 import com.example.vims_backend.entity.*;
 import com.example.vims_backend.entity.enums.*;
-import com.example.vims_backend.repo.*;
+import com.example.vims_backend.repository.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

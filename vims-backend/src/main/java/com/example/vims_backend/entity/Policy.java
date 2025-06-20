@@ -5,28 +5,42 @@ import java.time.LocalDate;
 import com.example.vims_backend.entity.enums.PolicyStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Policy {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int policyId;
-    private int proposalId;
+	
+	@OneToOne
+	@JoinColumn(name = "proposal_id")
+	private Proposal proposal;
+	
     private String policyNumber;
+    
     private LocalDate startDate;
+    
     private LocalDate endDate;
+    
+    @Enumerated(EnumType.STRING)
     private PolicyStatus status;
+    
     private String documentUrl;
 
     public Policy() {}
 
-    public Policy(int policyId, int proposalId, String policyNumber, LocalDate startDate,
+    public Policy(int policyId, Proposal proposalId, String policyNumber, LocalDate startDate,
                   LocalDate endDate, PolicyStatus status, String documentUrl) {
         this.policyId = policyId;
-        this.proposalId = proposalId;
+        this.proposal = proposalId;
         this.policyNumber = policyNumber;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -38,7 +52,7 @@ public class Policy {
     public String toString() {
         return "Policy{" +
                 "policyId=" + policyId +
-                ", proposalId=" + proposalId +
+                ", proposalId=" + proposal +
                 ", policyNumber='" + policyNumber + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
@@ -55,12 +69,12 @@ public class Policy {
         this.policyId = policyId;
     }
 
-    public int getProposalId() {
-        return proposalId;
+    public Proposal getProposalId() {
+        return proposal;
     }
 
-    public void setProposalId(int proposalId) {
-        this.proposalId = proposalId;
+    public void setProposalId(Proposal proposalId) {
+        this.proposal = proposalId;
     }
 
     public String getPolicyNumber() {

@@ -5,97 +5,119 @@ import java.time.LocalDate;
 import com.example.vims_backend.entity.enums.ProposalStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Proposal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int proposalId;
-    private int userId;
-    private int vehicleId;
-    private ProposalStatus status;
-    private LocalDate submissionDate;
-    private double quoteAmount;
-    private int approvedBy;
+	
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     
-    public Proposal() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+    
+    @ManyToOne
+    @JoinColumn(name = "policy_type_id")
+    private PolicyType policyType;
+    
+    @Enumerated(EnumType.STRING)
+    private ProposalStatus status;
+    
+    private LocalDate submissionDate;
+    
+    private double quoteAmount;
+    
+    @ManyToOne
+    @JoinColumn(name = "approved_by")
+    private User approvedBy;
+    
+	public int getProposalId() {
+		return proposalId;
+	}
 
-    public Proposal(int proposalId, int userId, int vehicleId, ProposalStatus status, LocalDate submissionDate,
-            double quoteAmount, int approvedBy) {
-        this.proposalId = proposalId;
-        this.userId = userId;
-        this.vehicleId = vehicleId;
-        this.status = status;
-        this.submissionDate = submissionDate;
-        this.quoteAmount = quoteAmount;
-        this.approvedBy = approvedBy;
-    }
+	public void setProposalId(int proposalId) {
+		this.proposalId = proposalId;
+	}
 
-    @Override
-    public String toString() {
-        return "Proposal [proposalId=" + proposalId + ", userId=" + userId + ", vehicleId=" + vehicleId + ", status="
-            + status + ", submissionDate=" + submissionDate + ", quoteAmount=" + quoteAmount + ", approvedBy="
-            + approvedBy + "]";
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public int getProposalId() {
-        return proposalId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setProposalId(int proposalId) {
-        this.proposalId = proposalId;
-    }
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public ProposalStatus getStatus() {
+		return status;
+	}
 
-    public int getVehicleId() {
-        return vehicleId;
-    }
+	public void setStatus(ProposalStatus status) {
+		this.status = status;
+	}
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+	public LocalDate getSubmissionDate() {
+		return submissionDate;
+	}
 
-    public ProposalStatus getStatus() {
-        return status;
-    }
+	public void setSubmissionDate(LocalDate submissionDate) {
+		this.submissionDate = submissionDate;
+	}
 
-    public void setStatus(ProposalStatus status) {
-        this.status = status;
-    }
+	public double getQuoteAmount() {
+		return quoteAmount;
+	}
 
-    public LocalDate getSubmissionDate() {
-        return submissionDate;
-    }
+	public void setQuoteAmount(double quoteAmount) {
+		this.quoteAmount = quoteAmount;
+	}
 
-    public void setSubmissionDate(LocalDate submissionDate) {
-        this.submissionDate = submissionDate;
-    }
+	public User getApprovedBy() {
+		return approvedBy;
+	}
 
-    public double getQuoteAmount() {
-        return quoteAmount;
-    }
+	public void setApprovedBy(User approvedBy) {
+		this.approvedBy = approvedBy;
+	}
 
-    public void setQuoteAmount(double quoteAmount) {
-        this.quoteAmount = quoteAmount;
+	public Proposal(int proposalId, User user, Vehicle vehicle, ProposalStatus status, LocalDate submissionDate,
+			double quoteAmount, User approvedBy) {
+		super();
+		this.proposalId = proposalId;
+		this.user = user;
+		this.vehicle = vehicle;
+		this.status = status;
+		this.submissionDate = submissionDate;
+		this.quoteAmount = quoteAmount;
+		this.approvedBy = approvedBy;
+	}
+	
+	public Proposal() {
     }
-
-    public int getApprovedBy() {
-        return approvedBy;
-    }
-
-    public void setApprovedBy(int approvedBy) {
-        this.approvedBy = approvedBy;
-    }
-
+	
+	@Override
+	public String toString() {
+		return "Proposal [proposalId=" + proposalId + ", user=" + user + ", vehicle=" + vehicle + ", status=" + status
+				+ ", submissionDate=" + submissionDate + ", quoteAmount=" + quoteAmount + ", approvedBy=" + approvedBy
+				+ "]";
+	}
+    
 }

@@ -8,19 +8,28 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+    
     private String name;
+    
     private String email;
+    
     private String password;
+    
     private LocalDate dob;
+    
     private String aadhaar;
+    
     private String pan;
+    
+    @Enumerated(EnumType.STRING)
     private Role role;
+    
     private LocalDateTime createdAt = LocalDateTime.now();
     
     public int getUserId() {

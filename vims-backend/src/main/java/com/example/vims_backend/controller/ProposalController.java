@@ -32,27 +32,21 @@ public class ProposalController {
     // Handle Proposal Submission
     @PostMapping("/submitProposal")
     public String submitProposal(@ModelAttribute Proposal proposal, Model model) {
-        proposalService.submitProposal(proposal);
+        proposalService.submitProposal(proposal); 
         model.addAttribute("message", "Proposal submitted successfully!");
         return "userhome.jsp";
     }
 
-    // View Proposals for a user
-    @GetMapping("/viewProposals")
-    public String viewProposals(@RequestParam("userId") int userId, Model model) {
-        List<Proposal> proposals = proposalService.getProposalsByUserId(userId);
-        model.addAttribute("proposals", proposals);
-        return "view_proposals.jsp";
-    }
 
     // Officer approves and adds quote
     @PostMapping("/approveProposal")
-    public String approveProposal(@RequestParam int proposalId,
-                                  @RequestParam double quoteAmount,
-                                  @RequestParam int officerId,
-                                  Model model) {
-        proposalService.approveProposal(proposalId, quoteAmount, officerId);
-        model.addAttribute("message", "Quote successfully generated.");
+    public String approveProposal(@RequestParam int proposalId, @RequestParam double quoteAmount, @RequestParam int officerId, Model model) {
+        if (quoteAmount <= 0) {
+            model.addAttribute("error", "Quote amount must be positive.");
+            return "officerhome.jsp";
+        }
+
         return "officerhome.jsp";
     }
+
 }

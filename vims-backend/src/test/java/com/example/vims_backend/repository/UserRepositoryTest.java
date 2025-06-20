@@ -2,7 +2,7 @@ package com.example.vims_backend.repository;
 
 import com.example.vims_backend.entity.User;
 import com.example.vims_backend.entity.enums.Role;
-import com.example.vims_backend.repo.UserRepository;
+import com.example.vims_backend.repository.UserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
