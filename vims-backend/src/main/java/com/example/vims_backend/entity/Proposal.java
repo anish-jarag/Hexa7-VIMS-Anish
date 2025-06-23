@@ -98,6 +98,14 @@ public class Proposal {
 		this.approvedBy = approvedBy;
 	}
 
+	public PolicyType getPolicyType() {
+		return policyType;
+	}
+
+	public void setPolicyType(PolicyType policyType) {
+		this.policyType = policyType;
+	}
+
 	public Proposal(int proposalId, User user, Vehicle vehicle, ProposalStatus status, LocalDate submissionDate,
 			double quoteAmount, User approvedBy) {
 		super();

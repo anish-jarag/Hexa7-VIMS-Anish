@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,7 +32,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp 
+    private LocalDateTime createdAt;
     
     public int getUserId() {
         return userId;
